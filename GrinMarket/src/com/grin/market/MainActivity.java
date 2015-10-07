@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 //		HttpConnector registerBBS = new HttpConnector();
 //		registerBBS.registerBBS();
 		// Set up the drawer.
-		//get listÇØ¼­ °¡Á®¿À±â
+		//get listï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayShowTitleEnabled(false); // Ã³À½ ½ÃÀÛ½Ã disable »óÅÂ·Î Ç¥½Ã
+		actionBar.setDisplayShowTitleEnabled(false); // Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Û½ï¿½ disable ï¿½ï¿½ï¿½Â·ï¿½ Ç¥ï¿½ï¿½
 		actionBar.setTitle(mTitle);
 	}
 
