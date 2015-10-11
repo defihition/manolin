@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * A basic sample which shows how to use {@link com.grin.market.view.example.android.common.view.SlidingTabLayout}
+ * A basic sample which shows how to use {@link com.grin.market.view.SlidingTabLayout}
  * to display a custom {@link ViewPager} title strip which gives continuous feedback to the user
  * when scrolling.
  */
@@ -47,6 +47,10 @@ public class SlidingTabsBasicFragment extends Fragment {
      * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
     private ViewPager mViewPager;
+    
+    
+    private String[] titles = null;
+    
 
     /**
      * Inflates the {@link View} which will be displayed by this {@link Fragment}, from the app's
@@ -55,6 +59,7 @@ public class SlidingTabsBasicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+    	titles = getResources().getStringArray(R.array.title);
         return inflater.inflate(R.layout.fragment_sample, container, false);
     }
 
@@ -91,14 +96,17 @@ public class SlidingTabsBasicFragment extends Fragment {
      * this class is the {@link #getPageTitle(int)} method which controls what is displayed in the
      * {@link SlidingTabLayout}.
      */
+    // TODO : fregment setting // get title, and 
     class SamplePagerAdapter extends PagerAdapter {
-
+    	
         /**
          * @return the number of pages to display
          */
         @Override
         public int getCount() {
-            return 3;
+        	if (titles != null)
+        		return titles.length;
+        	return 3;
         }
 
         /**
@@ -120,7 +128,11 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public CharSequence getPageTitle(int position) {
+        	if (titles != null)
+        		return titles[position];
+        	
             return "Item " + (position + 1);
+        	
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 

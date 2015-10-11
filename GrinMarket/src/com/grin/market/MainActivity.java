@@ -6,10 +6,12 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, DealFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, DealFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener{
 	
 	private static String TAG = MainActivity.class.getSimpleName();
 
@@ -39,22 +41,36 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main2);
 
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
+		Log.d(TAG, "drawerFragment create end");
+		mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+		
+//		mTitle = getTitle();
+//		Log.d(TAG, mTitle.toString());
+	
+//		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//		mViewPager = (ViewPager) findViewById(R.id.pager);
+//		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
         if (savedInstanceState == null) {
+        	Log.d(TAG, "savedInstanceState is null");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             SlidingTabsBasicFragment fragment = new SlidingTabsBasicFragment();
             transaction.replace(R.id.sample_content_fragment, fragment);
             transaction.commit();
-        }		// get listview
+            Log.d(TAG, "sample_content_fragment replace");
+        }
+        // get listview
 //		HttpConnector connector = new HttpConnector();
 //		connector.executeThread();
 		
 //		HttpConnector registerBBS = new HttpConnector();
 //		registerBBS.registerBBS();
 		// Set up the drawer.
-		//get list�ؼ� ��������
 	}
 
 	@Override
@@ -76,8 +92,18 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 	}
 
 	public void onSectionAttached(int number) {
+		Log.d(TAG, "onSectionAttached");
 		String[] titles = getResources().getStringArray(R.array.title);
 		mTitle = titles[number-1];
+	}
+
+	public void restoreActionBar() {
+		Log.d(TAG, "restoreActionBar()");
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setTitle(mTitle);
 	}
 
 	@Override
@@ -88,6 +114,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 			// if the drawer is not showing. Otherwise, let the drawer
 			// decide what to show in the action bar.
 			getMenuInflater().inflate(R.menu.main, menu);
+			restoreActionBar();
 			return true;
 		}
 		return super.onCreateOptionsMenu(menu);
@@ -95,6 +122,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d(TAG, "onOptionsItemSelected");
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
@@ -105,7 +133,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		return super.onOptionsItemSelected(item);
 	}
 
-	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -114,15 +141,15 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		
+
 		private static final String ARG_SECTION_NUMBER = "section_number";
 
 		/**
 		 * Returns a new instance of this fragment for the given section number.
 		 */
 		public static PlaceholderFragment newInstance(int sectionNumber) {
-			Log.d(TAG, "section number" + sectionNumber);
-			
+			Log.d(TAG, "newInstance section number" + sectionNumber);
+
 			PlaceholderFragment fragment = new PlaceholderFragment();
 			Bundle args = new Bundle();
 			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -142,11 +169,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 		@Override
 		public void onAttach(Activity activity) {
+			Log.d(TAG, "onAttach");
 			super.onAttach(activity);
 			((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
 		}
 	}
-
 
 	@Override
 	public void onReadDealPost(String id) {
@@ -188,7 +215,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 	// detailFragment onclick listener
 	@Override
 	public void onFragmentInteraction(Uri uri) {
-		// TODO Auto-generated method stub
+		Log.d(TAG, "onFragmentInteraction");
 		
 	}
 }

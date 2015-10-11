@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import android.view.ViewGroup;
 public class DetailFragment extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+	
+	private static final String TAG = DetailFragment.class.getSimpleName();
 	private static final String ARG_PARAM1 = "param1";
 	private static final String ARG_PARAM2 = "param2";
 
@@ -39,6 +42,7 @@ public class DetailFragment extends Fragment {
 	 */
 	// TODO: Rename and change types and number of parameters
 	public static DetailFragment newInstance(String param1, String param2) {
+		Log.d(TAG, "newInstance");
 		DetailFragment fragment = new DetailFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
@@ -53,6 +57,7 @@ public class DetailFragment extends Fragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
 			mParam1 = getArguments().getString(ARG_PARAM1);
@@ -62,12 +67,14 @@ public class DetailFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		Log.d(TAG, "onCreateView");
 		// Inflate the layout for this fragment
 		return inflater.inflate(R.layout.fragment_detail, container, false);
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {
+		Log.d(TAG, "onButtonPressed");
 		if (mListener != null) {
 			mListener.onFragmentInteraction(uri);
 		}
@@ -75,6 +82,7 @@ public class DetailFragment extends Fragment {
 
 	@Override
 	public void onAttach(Activity activity) {
+		Log.d(TAG, "onAttach");
 		super.onAttach(activity);
 		try {
 			mListener = (OnFragmentInteractionListener) activity;
@@ -85,6 +93,7 @@ public class DetailFragment extends Fragment {
 
 	@Override
 	public void onDetach() {
+		Log.d(TAG, "onDetach");
 		super.onDetach();
 		mListener = null;
 	}

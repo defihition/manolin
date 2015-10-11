@@ -22,12 +22,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
 class SlidingTabStrip extends LinearLayout {
 
+	private static final String TAG = SlidingTabStrip.class.getSimpleName();
+	
     private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
     private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 8;
@@ -63,7 +66,6 @@ class SlidingTabStrip extends LinearLayout {
         setWillNotDraw(false);
 
         final float density = getResources().getDisplayMetrics().density;
-
         TypedValue outValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorForeground, outValue, true);
         final int themeForegroundColor =  outValue.data;
@@ -115,6 +117,7 @@ class SlidingTabStrip extends LinearLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
+    	Log.d(TAG, "onDraw()");
         final int height = getHeight();
         final int childCount = getChildCount();
         final int dividerHeightPx = (int) (Math.min(Math.max(0f, mDividerHeight), 1f) * height);
@@ -129,24 +132,28 @@ class SlidingTabStrip extends LinearLayout {
             int right = selectedTitle.getRight();
             int color = tabColorizer.getIndicatorColor(mSelectedPosition);
 
+            Log.d(TAG, left + "  " + right);
             if (mSelectionOffset > 0f && mSelectedPosition < (getChildCount() - 1)) {
                 int nextColor = tabColorizer.getIndicatorColor(mSelectedPosition + 1);
                 if (color != nextColor) {
                     color = blendColors(nextColor, color, mSelectionOffset);
                 }
 
+                // 여기서 right와 left 계산 다시하도록 하기 
                 // Draw the selection partway between the tabs
                 View nextTitle = getChildAt(mSelectedPosition + 1);
                 left = (int) (mSelectionOffset * nextTitle.getLeft() +
                         (1.0f - mSelectionOffset) * left);
                 right = (int) (mSelectionOffset * nextTitle.getRight() +
                         (1.0f - mSelectionOffset) * right);
+                Log.d(TAG, left + "  " + right);
             }
 
             mSelectedIndicatorPaint.setColor(color);
 
             canvas.drawRect(left, height - mSelectedIndicatorThickness, right,
                     height, mSelectedIndicatorPaint);
+//            canvas.drawRect//left, top, right, bottom
         }
 
         // Thin underline along the entire bottom edge

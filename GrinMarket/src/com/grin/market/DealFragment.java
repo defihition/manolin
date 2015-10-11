@@ -57,6 +57,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	// TODO: Rename and change types of parameters
 	public static DealFragment newInstance(String writerParam) {
+		Log.d(TAG, "newInstance ");
 		if (fragment != null)
 			return fragment;
 
@@ -79,7 +80,6 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
      */	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// 세부 내용 보여주는 페이지로 이동
 		Log.d(TAG, "onListItemClick" + id + " " + position);
 //		Toast.makeText(context, items.get(pos).getTitle(), Toast.LENGTH_SHORT).show(); /// 
 		mListener.onReadDealPost(String.valueOf(position));
@@ -87,6 +87,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 
 		if (getArguments() != null) {
@@ -115,7 +116,6 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				// writeActivity 로전환 
 				Toast.makeText(getActivity(), "click", Toast.LENGTH_LONG).show();;
 				
 			}
@@ -127,6 +127,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	@Override
 	public void onAttach(Activity activity) {
+		Log.d(TAG, "onAttach");
 		super.onAttach(activity);
 		try {
 			mListener = (OnFragmentInteractionListener) activity;
@@ -137,6 +138,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	@Override
 	public void onDetach() {
+		Log.d(TAG, "onDetach");
 		super.onDetach();
 		mListener = null;
 	}
@@ -157,6 +159,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 	 * to supply the text it should use.
 	 */
 	public void setEmptyText(CharSequence emptyText) {
+		Log.d(TAG, "setEmptyText");
 		View emptyView = mListView.getEmptyView();
 
 		if (emptyView instanceof TextView) {
