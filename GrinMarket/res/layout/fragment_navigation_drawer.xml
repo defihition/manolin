@@ -7,4 +7,3 @@
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
     tools:context="com.grin.market.NavigationDrawerFragment" />
-

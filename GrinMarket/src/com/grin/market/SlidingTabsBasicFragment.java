@@ -35,7 +35,7 @@ import android.widget.TextView;
  */
 public class SlidingTabsBasicFragment extends Fragment {
 
-    static final String LOG_TAG = "SlidingTabsBasicFragment";
+	private static final String TAG = SlidingTabsBasicFragment.class.getSimpleName();
 
     /**
      * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
@@ -59,6 +59,7 @@ public class SlidingTabsBasicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+    	Log.d(TAG, "onCreateView");
     	titles = getResources().getStringArray(R.array.title);
         return inflater.inflate(R.layout.fragment_sample, container, false);
     }
@@ -75,6 +76,7 @@ public class SlidingTabsBasicFragment extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+    	Log.d(TAG, "onViewCreated");
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
@@ -85,6 +87,7 @@ public class SlidingTabsBasicFragment extends Fragment {
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
         // it's PagerAdapter set.
         mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        
         mSlidingTabLayout.setViewPager(mViewPager);
         // END_INCLUDE (setup_slidingtablayout)
     }
@@ -104,6 +107,7 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public int getCount() {
+        	Log.d(TAG, "getCount()");
         	if (titles != null)
         		return titles.length;
         	return 3;
@@ -115,6 +119,7 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public boolean isViewFromObject(View view, Object o) {
+        	Log.d(TAG, "isViewFromObject");
             return o == view;
         }
 
@@ -128,6 +133,7 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public CharSequence getPageTitle(int position) {
+        	Log.d(TAG, "getPageTitle()");
         	if (titles != null)
         		return titles[position];
         	
@@ -142,6 +148,7 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+        	Log.d(TAG, "instantiateItem");
             // Inflate a new layout from our resources
             View view = getActivity().getLayoutInflater().inflate(R.layout.pager_item,
                     container, false);
@@ -152,7 +159,7 @@ public class SlidingTabsBasicFragment extends Fragment {
             TextView title = (TextView) view.findViewById(R.id.item_title);
             title.setText(String.valueOf(position + 1));
 
-            Log.i(LOG_TAG, "instantiateItem() [position: " + position + "]");
+            Log.i(TAG, "instantiateItem() [position: " + position + "]");
 
             // Return the View
             return view;
@@ -165,8 +172,7 @@ public class SlidingTabsBasicFragment extends Fragment {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
-            Log.i(LOG_TAG, "destroyItem() [position: " + position + "]");
+            Log.i(TAG, "destroyItem() [position: " + position + "]");
         }
-
     }
 }

@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 		setContentView(R.layout.activity_main2);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
-		Log.d(TAG, "drawerFragment create end");
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 		
 //		mTitle = getTitle();
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		Log.d(TAG, "onCreateOptionsMenu");
-		if (!mNavigationDrawerFragment.isDrawerOpen()) {
+		if (mNavigationDrawerFragment != null && !mNavigationDrawerFragment.isDrawerOpen()) {
 			// Only show items in the action bar relevant to this screen
 			// if the drawer is not showing. Otherwise, let the drawer
 			// decide what to show in the action bar.
