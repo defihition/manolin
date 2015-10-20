@@ -57,7 +57,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	// TODO: Rename and change types of parameters
 	public static DealFragment newInstance(String writerParam) {
-		Log.d(TAG, "newInstance ");
+		Log.d(TAG, "newInstance()");
 		if (fragment != null)
 			return fragment;
 
@@ -80,14 +80,14 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
      */	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		Log.d(TAG, "onListItemClick" + id + " " + position);
+		Log.d(TAG, "onListItemClick()" + id + " " + position);
 //		Toast.makeText(context, items.get(pos).getTitle(), Toast.LENGTH_SHORT).show(); /// 
 		mListener.onReadDealPost(String.valueOf(position));
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d(TAG, "onCreate");
+		Log.d(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 
 		if (getArguments() != null) {
@@ -127,7 +127,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	@Override
 	public void onAttach(Activity activity) {
-		Log.d(TAG, "onAttach");
+		Log.d(TAG, "onAttach()");
 		super.onAttach(activity);
 		try {
 			mListener = (OnFragmentInteractionListener) activity;
@@ -138,14 +138,14 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 	@Override
 	public void onDetach() {
-		Log.d(TAG, "onDetach");
+		Log.d(TAG, "onDetach()");
 		super.onDetach();
 		mListener = null;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Log.d(TAG, "onItemClick - listview override"  + id + "  "  + position);
+		Log.d(TAG, "onItemClick() - listview override"  + id + "  "  + position);
 		if (null != mListener) {
 			// Notify the active callbacks interface (the activity, if the
 			// fragment is attached to one) that an item has been selected.
@@ -159,7 +159,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 	 * to supply the text it should use.
 	 */
 	public void setEmptyText(CharSequence emptyText) {
-		Log.d(TAG, "setEmptyText");
+		Log.d(TAG, "setEmptyText()");
 		View emptyView = mListView.getEmptyView();
 
 		if (emptyView instanceof TextView) {

@@ -42,7 +42,7 @@ public class DetailFragment extends Fragment {
 	 */
 	// TODO: Rename and change types and number of parameters
 	public static DetailFragment newInstance(String param1, String param2) {
-		Log.d(TAG, "newInstance");
+		Log.d(TAG, "newInstance()");
 		DetailFragment fragment = new DetailFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);

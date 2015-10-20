@@ -69,20 +69,35 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	@Override
+	public void onAttach(Activity activity) {
+		Log.d(TAG, "onAttach()");
+		super.onAttach(activity);
+		
+		try {
+			mCallbacks = (NavigationDrawerCallbacks) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
+		}
+	}
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 
 		// Read in the flag indicating whether or not the user has demonstrated
-		// awareness of the
-		// drawer. See PREF_USER_LEARNED_DRAWER for details.
+		// awareness of the drawer. See PREF_USER_LEARNED_DRAWER for details.
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
-		if (savedInstanceState != null) {
-			Log.d(TAG, "savedInstanceState is null");
+		// TODO: 언제 호출되는지 잘 몰겠음... 나중에 찾아 보기 
+		if (savedInstanceState != null) { 
+			Log.d(TAG, "savedInstanceState is not null" + savedInstanceState.toString());
 			mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+			Log.d(TAG, "selectedPosition " + mCurrentSelectedPosition + mFromSavedInstanceState);
 			mFromSavedInstanceState = true;
+		} else {
+			Log.d(TAG, "savedInstanceState is null");
 		}
 
 		// Select either the default item (0) or the last selected item.
@@ -90,17 +105,8 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		Log.d(TAG, "onActivityCreated");
-		super.onActivityCreated(savedInstanceState);
-		// Indicate that this fragment would like to influence the set of
-		// actions in the action bar.
-		setHasOptionsMenu(true);
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.d(TAG, "onCreateView");
+		Log.d(TAG, "onCreateView()" + mCurrentSelectedPosition);
 		mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 		mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -108,19 +114,14 @@ public class NavigationDrawerFragment extends Fragment {
 				selectItem(position);
 			}
 		});
+		// TODO : what is android.R.id.text1
 		mDrawerListView.setAdapter(
 				new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1,
-						android.R.id.text1, getResources().getStringArray(R.array.title)));
-		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-		Log.d(TAG, "onCreateView" + getResources().getStringArray(R.array.title)[0]);
+						android.R.id.text1, getResources().getStringArray(R.array.navigation_title)));
+//		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 		return mDrawerListView;
 	}
-
-	public boolean isDrawerOpen() {
-		Log.d(TAG, "isDrawerOpen()");
-		return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
-	}
-
+	
 	/**
 	 * Users of this fragment must call this method to set up the navigation
 	 * drawer interactions.
@@ -131,28 +132,26 @@ public class NavigationDrawerFragment extends Fragment {
 	 *            The DrawerLayout containing this fragment's UI.
 	 */
 	public void setUp(int fragmentId, DrawerLayout drawerLayout) {
-		Log.d(TAG, "setUP");
+		Log.d(TAG, "setUp()");
 		mFragmentContainerView = getActivity().findViewById(fragmentId);
 		mDrawerLayout = drawerLayout;
 
-		// set a custom shadow that overlays the main content when the drawer
-		// opens
+		// set a custom shadow that overlays the main content when the drawer opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		// set up the drawer's list view with items and click listener
 
 		// 우측 상단에 보여지는 부분이 액션 바임.. 이 세줄을 지우면 보이는것이 다름 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setHomeButtonEnabled(true);
+//		actionBar.setHomeButtonEnabled(true); 
+		// TODO: 위 한줄이 뭘 의미하는지 찾아보기
 
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the navigation drawer and the action bar app icon.
 		mDrawerToggle = new ActionBarDrawerToggle(
 				getActivity(), /* host Activity */
 				mDrawerLayout, /* DrawerLayout object */
-				R.drawable.ic_drawer, /*
-										 * nav drawer image to replace 'Up' caret
-										 */
+				R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
 				R.string.navigation_drawer_open
 		) {
 			@Override
@@ -161,9 +160,7 @@ public class NavigationDrawerFragment extends Fragment {
 				if (!isAdded()) {
 					return;
 				}
-
-				getActivity().invalidateOptionsMenu(); // calls
-																// onPrepareOptionsMenu()
+				getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu() //TODO : example action 이 없어짐. 
 			}
 
 			@Override
@@ -174,24 +171,21 @@ public class NavigationDrawerFragment extends Fragment {
 				}
 
 				if (!mUserLearnedDrawer) {
-					// The user manually opened the drawer; store this flag to
-					// prevent auto-showing
+					// The user manually opened the drawer; store this flag to prevent auto-showing
 					// the navigation drawer automatically in the future.
-					mUserLearnedDrawer = false; // 초기 화면에 close 된 상태임.
+					mUserLearnedDrawer = true; // TODO : 몬지 모르겠음.. ㅠㅠ 
 					SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 					sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).commit();
 				}
-
-				getActivity().invalidateOptionsMenu(); // calls
-																// onPrepareOptionsMenu()
+				getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
 			}
 		};
 
-		// If the user hasn't 'learned' about the drawer, open it to introduce
-		// them to the drawer,
-		// per the navigation drawer design guidelines.
+		// If the user hasn't 'learned' about the drawer, open it to introduce 
+		// them to the drawer, per the navigation drawer design guidelines.
 		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
 			mDrawerLayout.openDrawer(mFragmentContainerView);
+			//closeDrawer가 default 임 
 		}
 
 		// Defer code dependent on restoration of previous instance state.
@@ -204,9 +198,24 @@ public class NavigationDrawerFragment extends Fragment {
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		Log.d(TAG, "onActivityCreated()");
+		super.onActivityCreated(savedInstanceState);
+		// Indicate that this fragment would like to influence the set of actions in the action bar.
+		setHasOptionsMenu(true);
+	}
+	
+	public boolean isDrawerOpen() {
+		Log.d(TAG, "isDrawerOpen()");
+		return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+	}
+	
 
+	// 실제 navigation view에서 item이 선택될 경우 호출해서 fragment를 변화시키고 drawerlistview를 닫아주는 부분 
 	private void selectItem(int position) {
-		Log.d(TAG, "selectItem");
+		Log.d(TAG, "selectItem()" + position);
 		mCurrentSelectedPosition = position;
 		if (mDrawerListView != null) {
 			mDrawerListView.setItemChecked(position, true);
@@ -220,20 +229,8 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		Log.d(TAG, "onAttach");
-		super.onAttach(activity);
-		
-		try {
-			mCallbacks = (NavigationDrawerCallbacks) activity;
-		} catch (ClassCastException e) {
-			throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
-		}
-	}
-
-	@Override
 	public void onDetach() {
-		Log.d(TAG, "onDetach");
+		Log.d(TAG, "onDetach()");
 		super.onDetach();
 		mCallbacks = null;
 	}

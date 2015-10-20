@@ -1,12 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="market.grin.com.grinmarket.BlankFragment">
+    android:layout_height="match_parent" tools:context="com.grin.market.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView android:layout_width="match_parent" android:layout_height="match_parent"
         android:text="히히 하나씩" />
     
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="나중에 내용 레이아웃 정리하기" />
-
 </FrameLayout>
