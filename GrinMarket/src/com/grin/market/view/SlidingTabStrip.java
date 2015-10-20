@@ -132,7 +132,7 @@ class SlidingTabStrip extends LinearLayout {
             int right = selectedTitle.getRight();
             int color = tabColorizer.getIndicatorColor(mSelectedPosition);
 
-            Log.d(TAG, left + "  " + right);
+//            Log.d(TAG, left + "  " + right);
             if (mSelectionOffset > 0f && mSelectedPosition < (getChildCount() - 1)) {
                 int nextColor = tabColorizer.getIndicatorColor(mSelectedPosition + 1);
                 if (color != nextColor) {
@@ -146,7 +146,7 @@ class SlidingTabStrip extends LinearLayout {
                         (1.0f - mSelectionOffset) * left);
                 right = (int) (mSelectionOffset * nextTitle.getRight() +
                         (1.0f - mSelectionOffset) * right);
-                Log.d(TAG, left + "  " + right);
+//                Log.d(TAG, left + "  " + right);
             }
 
             mSelectedIndicatorPaint.setColor(color);
