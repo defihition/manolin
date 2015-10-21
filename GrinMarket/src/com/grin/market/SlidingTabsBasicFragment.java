@@ -170,12 +170,12 @@ public class SlidingTabsBasicFragment extends Fragment {
 						(ArrayList<BBSEntity>) DummyBBSContent.ITEMS);
 				AbsListView mListView = (AbsListView) view.findViewById(android.R.id.list);
 				
-				mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // SimpleAdapter라 안되는 것인가??
+				/*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // SimpleAdapter라 안되는 것인가??
 			            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			                // When clicked, show a toast with the TextView text
 			                Toast.makeText(getActivity(), "유후" + position, Toast.LENGTH_SHORT).show();
 			            }
-			        });
+			        });*/
 				 
 				((AdapterView<ListAdapter>) mListView).setAdapter(bbsAdapter);
 				// listview에 listener 달기

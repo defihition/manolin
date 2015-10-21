@@ -23,7 +23,7 @@ public class BBSEntityAdapter extends ArrayAdapter<BBSEntity> {
 	private Context context;
 	
 	// for debugging
-	private String[] titles = {"Deal", "Rounge", "Donation"};
+//	private String[] titles = {"Deal", "Rounge", "Donation"};
 	
 	public BBSEntityAdapter(Context context, int resource, ArrayList<BBSEntity> bbsList) {
 		super(context, resource, bbsList);
@@ -33,7 +33,7 @@ public class BBSEntityAdapter extends ArrayAdapter<BBSEntity> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Log.d(TAG, "getView() : " + titles[position] );
+		Log.d(TAG, "getView()" );
 		View v = convertView;
 		final int pos = position;
 		if (v == null) {
@@ -41,13 +41,12 @@ public class BBSEntityAdapter extends ArrayAdapter<BBSEntity> {
 			v = vi.inflate(R.layout.list_layout, null);
 		}
 
-		/*v.setOnClickListener(new OnClickListener() {
+		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO :  »≠∏È ¿¸»Ø bodyøÕ ¥Ÿ∏• ∞Õ¿∏∑Œ «•Ω√µ«¥¬ »≠∏È¿Ã ∫∏ø©¡Ææﬂ«‘.. ¿Ã∞« æÓ¬æ¥Ÿ §ª§ª§ª§ª
 				Toast.makeText(context, items.get(pos).getTitle(), Toast.LENGTH_SHORT).show();
 			}
-		});*/
+		});
 		
 		BBSEntity p = items.get(position);
 		if (p != null) {
@@ -57,7 +56,7 @@ public class BBSEntityAdapter extends ArrayAdapter<BBSEntity> {
 				tt.setText(p.getTitle());
 			}
 			if (bt != null) {
-				bt.setText("±€æ¥¿Ã: " + p.getWriter());
+				bt.setText("Í∏ÄÏì¥Ïù¥: " + p.getWriter());
 			}
 		}
 		return v;

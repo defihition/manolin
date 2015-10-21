@@ -64,17 +64,18 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		Log.d(TAG, "onNavigationDrawerItemSelected() : " + position);
-		Fragment fragment = DealFragment.newInstance(userID);
+		Fragment fragment = MyInfoFragment.newInstance(userID);
 	    FragmentManager fragmentManager = getSupportFragmentManager(); // For AppCompat use getSupportFragmentManager
 	    switch(position) {
-	        default:
-	        	fragment = DealFragment.newInstance(userID);
-//	        case 0:
-//	            fragment = DealFragment.newInstance(userID);
-//	            break;
+	        case 1:
+	            fragment = MyInfoFragment.newInstance(userID);
+	            break;
 //	        case 1:
 //	            fragment = DealFragment.newInstance(userID);
 //	            break;
+	        default:
+	        	mNavigationDrawerFragment.mDrawerToggle.onDrawerClosed(null);
+	        	return;
 	    }
 	    fragmentManager.beginTransaction().replace(R.id.sample_content_fragment, fragment).commit();
 	}
