@@ -109,7 +109,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 
 		// Set OnItemClickListener so we can be notified on item clicks
 		mListView.setOnItemClickListener(this);
-
+/*
 		FloatingActionButton mFloatingButton = (FloatingActionButton) view.findViewById(R.id.mFloatingActionButton);
 		mFloatingButton.setOnClickListener(new OnClickListener() {
 			
@@ -121,7 +121,7 @@ public class DealFragment extends ListFragment implements AbsListView.OnItemClic
 			}
 		});
 		mFloatingButton.attachToListView(mListView);
-
+*/
 		return view;
 	}
 

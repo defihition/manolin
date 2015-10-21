@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import com.grin.market.adapter.BBSEntityAdapter;
 import com.grin.market.dummy.DummyBBSContent;
+import com.grin.market.floatingButton.FloatingActionButton;
 import com.grin.market.type.BBSEntity;
 import com.grin.market.view.SlidingTabLayout;
 
@@ -30,11 +31,12 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * A basic sample which shows how to use {@link com.grin.market.view.SlidingTabLayout}
@@ -167,10 +169,27 @@ public class SlidingTabsBasicFragment extends Fragment {
 				BBSEntityAdapter bbsAdapter = new BBSEntityAdapter(getActivity(), android.R.layout.simple_list_item_1,
 						(ArrayList<BBSEntity>) DummyBBSContent.ITEMS);
 				AbsListView mListView = (AbsListView) view.findViewById(android.R.id.list);
+				
+				mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // SimpleAdapter라 안되는 것인가??
+			            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			                // When clicked, show a toast with the TextView text
+			                Toast.makeText(getActivity(), "유후" + position, Toast.LENGTH_SHORT).show();
+			            }
+			        });
+				 
 				((AdapterView<ListAdapter>) mListView).setAdapter(bbsAdapter);
+				// listview에 listener 달기
 
-				// Set OnItemClickListener so we can be notified on item clicks
-
+				FloatingActionButton mFloatingButton = (FloatingActionButton) view.findViewById(R.id.mFloatingActionButton);
+				mFloatingButton.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show();;
+						
+					}
+				});
+				mFloatingButton.attachToListView(mListView);
 				break;
 			default:
 				view = getActivity().getLayoutInflater().inflate(R.layout.fragment_deal, container, false);

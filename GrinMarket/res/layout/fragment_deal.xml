@@ -5,26 +5,9 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     tools:context="com.grin.market.DealFragment">
-<!-- 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
 
-     <FrameLayout
-        android:id="@+id/sample_content_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="2" /> -->
-        <ListView android:id="@android:id/list" android:layout_width="match_parent"
+    <ListView android:id="@android:id/list" android:layout_width="match_parent"
         android:layout_height="match_parent" /> 
-        
-   
-   
-    
-<!--     <TextView android:id="@android:id/empty" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:gravity="center" 
-        android:text="deal"/> -->
 
  	<com.grin.market.floatingButton.FloatingActionButton
 	    android:id="@+id/mFloatingActionButton"
@@ -35,4 +18,5 @@
 	    android:src="@android:drawable/ic_menu_add"
 	    fab:fab_colorNormal="#009688"
 	    fab:fab_colorPressed="#26a69a" />
+ 	
 </FrameLayout>
