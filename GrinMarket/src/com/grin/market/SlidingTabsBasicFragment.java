@@ -157,44 +157,45 @@ public class SlidingTabsBasicFragment extends Fragment {
         public Object instantiateItem(ViewGroup container, int position) {
         	Log.d(TAG, "BoardPagerAdapter - instantiateItem() : " + position);
             // Inflate a new layout from our resources
-			View view;
+			View view;AbsListView mListView;
 			switch (position) {
 			case 1:
-				view = getActivity().getLayoutInflater().inflate(R.layout.pager_item, container, false);
+				view =  getActivity().getLayoutInflater().inflate(R.layout.fragment_deal1, container, false);
+
+				BBSEntityAdapter bbsAdapter1 = new BBSEntityAdapter(getActivity(), android.R.layout.simple_list_item_1,
+						(ArrayList<BBSEntity>) DummyBBSContent.ITEMS);
+				mListView = (AbsListView) view.findViewById(android.R.id.list);
+				
+				((AdapterView<ListAdapter>) mListView).setAdapter(bbsAdapter1);
 				break;
 			case 2:
-				view =  getActivity().getLayoutInflater().inflate(R.layout.fragment_deal, container, false);
+				view =  getActivity().getLayoutInflater().inflate(R.layout.fragment_deal2, container, false);
 
-				// // Set the adapter
-				BBSEntityAdapter bbsAdapter = new BBSEntityAdapter(getActivity(), android.R.layout.simple_list_item_1,
+				BBSEntityAdapter bbsAdapter2 = new BBSEntityAdapter(getActivity(), android.R.layout.simple_list_item_1,
 						(ArrayList<BBSEntity>) DummyBBSContent.ITEMS);
-				AbsListView mListView = (AbsListView) view.findViewById(android.R.id.list);
-				
-				/*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // SimpleAdapter라 안되는 것인가??
-			            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			                // When clicked, show a toast with the TextView text
-			                Toast.makeText(getActivity(), "유후" + position, Toast.LENGTH_SHORT).show();
-			            }
-			        });*/
-				 
-				((AdapterView<ListAdapter>) mListView).setAdapter(bbsAdapter);
-				// listview에 listener 달기
-
-				FloatingActionButton mFloatingButton = (FloatingActionButton) view.findViewById(R.id.mFloatingActionButton);
-				mFloatingButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show();;
-						
-					}
-				});
-				mFloatingButton.attachToListView(mListView);
+				mListView = (AbsListView) view.findViewById(android.R.id.list);
+				((AdapterView<ListAdapter>) mListView).setAdapter(bbsAdapter2);
+			
 				break;
 			default:
 				view = getActivity().getLayoutInflater().inflate(R.layout.fragment_deal, container, false);
+				BBSEntityAdapter bbsAdapter3 = new BBSEntityAdapter(getActivity(), android.R.layout.simple_list_item_1,
+						(ArrayList<BBSEntity>) DummyBBSContent.ITEMS);
+				mListView = (AbsListView) view.findViewById(android.R.id.list);
+				 
+				((AdapterView<ListAdapter>) mListView).setAdapter(bbsAdapter3);
 
         	}
+			FloatingActionButton mFloatingButton = (FloatingActionButton) view.findViewById(R.id.mFloatingActionButton);
+			mFloatingButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show();;
+					
+				}
+			});
+			mFloatingButton.attachToListView(mListView);
 //            View view = getActivity().getLayoutInflater().inflate(R.layout.pager_item, container, false);
             // Add the newly created View to the ViewPager
             container.addView(view);
